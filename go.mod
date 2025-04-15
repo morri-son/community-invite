@@ -1,4 +1,4 @@
-module github.com/community-invite
+module github.com/morri-son/community-invite
 
 go 1.24.2
 
