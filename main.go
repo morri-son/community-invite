@@ -150,5 +150,6 @@ func handleSlackTarget(cfg *config.Config, target config.Target, dryRun bool) er
 		return nil
 	}
 
-	return slack.SendMessage(target.ChannelID, message)
+	// Added workspace parameter from target configuration
+	return slack.SendMessage(target.ChannelID, message, target.Workspace)
 }
