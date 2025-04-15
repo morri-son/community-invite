@@ -143,9 +143,6 @@ targets:
 
 ---
 
-## Template Files
-
-
 ## Testing instructions
 
 **Generate Files:**
