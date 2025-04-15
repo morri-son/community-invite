@@ -10,6 +10,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var cfgFile string
+
 func SendCmd() *cobra.Command {
 	var dryRun bool
 
@@ -29,7 +31,7 @@ func SendCmd() *cobra.Command {
 						return err
 					}
 				case "slack":
-					if err := handleSlackTarget(target, dryRun); err != nil {
+					if err := handleSlackTarget(cfg, target, dryRun); err != nil {
 						return err
 					}
 				default:
@@ -39,8 +41,7 @@ func SendCmd() *cobra.Command {
 			return nil
 		},
 	}
-
-	cmd.Flags().BoolVar(&dryRun, "dry-run", false, "Simulate sending without actual delivery")
+	cmd.Flags().StringVar(&cfgFile, "config", "config.yaml", "Path to the configuration file")
 	return cmd
 }
 
@@ -58,7 +59,7 @@ func handleEmailTarget(cfg *config.Config, target config.Target, dryRun bool) er
 	return smtp.SendBulkEmail(cfg, target.Recipients, body)
 }
 
-func handleSlackTarget(target config.Target, dryRun bool) error {
+func handleSlackTarget(cfg *config.Config, target config.Target, dryRun bool) error {
 	message, err := render.SlackMessage(cfg)
 	if err != nil {
 		return err

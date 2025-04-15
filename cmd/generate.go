@@ -4,6 +4,10 @@ import (
 	"fmt"
 	"os"
 
+	"path/filepath"
+
+	"github.com/community-invite/internal/config"
+	"github.com/community-invite/internal/render"
 	"github.com/spf13/cobra"
 )
 
@@ -14,23 +18,24 @@ func GenerateCmd() *cobra.Command {
 		Use:   "generate",
 		Short: "Generate invitation files",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			// Load config
-			cfg, err := LoadConfig(cfgFile)
+			cfg, err := config.LoadConfig(cfgFile)
 			if err != nil {
 				return fmt.Errorf("config error: %w", err)
 			}
 
-			// Validate output folder
 			if _, err := os.Stat(outputFolder); os.IsNotExist(err) {
 				return fmt.Errorf("output folder does not exist: %s", outputFolder)
 			}
 
-			// Render and save files
-			if err := GenerateFiles(cfg, outputFolder); err != nil {
+			if err := render.GenerateFiles(cfg, outputFolder); err != nil {
 				return fmt.Errorf("generation failed: %w", err)
 			}
 
-			fmt.Println("Files generated successfully")
+			fmt.Printf("Files generated successfully in %s:\n- %s\n- %s\n- %s\n",
+				outputFolder,
+				filepath.Join(outputFolder, "mail.html"),
+				filepath.Join(outputFolder, "mail.eml"),
+				filepath.Join(outputFolder, "slack.md"))
 			return nil
 		},
 	}

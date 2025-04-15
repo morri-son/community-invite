@@ -23,26 +23,37 @@ A secure CLI tool for managing community meeting communications.
 ## Project structure:
 
 ```bash
-community-invite/
-├── templates/                  # Template directory
-│   ├── email-template.html     # HTML email template
-│   └── slack-template.txt      # Slack markdown template
-├── cmd/
-│   ├── generate.go
-│   ├── testmail.go
-│   └── send.go
-├── internal/
-│   ├── config/
-│   │   └── config.go
-│   ├── smtp/
-│   │   └── smtp.go
-│   ├── slack/
-│   │   └── slack.go
-│   └── render/
-│       └── render.go
-├── go.mod
-├── go.sum
-└── main.go
+community-invite/                # Root directory for the community invitation CLI tool
+│
+├── templates/                  # Directory containing all message templates
+│   │                           # Templates use Go's templating syntax with {{.Variable}} placeholders
+│   ├── email-template.html     # HTML template for email invitations (contains styling and layout)
+│   └── slack-template.txt      # Markdown-formatted template for Slack messages (supports Slack formatting)
+│
+├── cmd/                        # Contains all CLI command implementations
+│   │                           # Each file corresponds to a subcommand (generate, testmail, send)
+│   ├── generate.go             # Implements the 'generate' command for creating local template files
+│   ├── testmail.go             # Implements the 'testmail' command for sending test emails
+│   └── send.go                 # Implements the 'send' command for production distribution
+│
+├── internal/                   # Internal implementation packages (not exposed externally)
+│   │
+│   ├── config/                 # Configuration loading and validation
+│   │   └── config.go           # Defines Config struct and YAML parsing logic
+│   │
+│   ├── smtp/                   # SMTP email sending functionality
+│   │   └── smtp.go             # Handles secure email delivery with STARTTLS
+│   │
+│   ├── slack/                  # Slack API integration
+│   │   └── slack.go            # Manages Slack message posting via Web API
+│   │
+│   └── render/                 # Template rendering engine
+│       └── render.go           # Processes templates with dynamic data injection
+│
+├── go.mod                      # Go module definition (lists dependencies and module path)
+├── go.sum                      # Go checksum file (ensures dependency integrity)
+├── config.yaml                 # Example configuration file (user-editable settings)
+└── main.go                     # Application entry point (CLI setup and command routing)
 ```
 
 ## Installation

@@ -11,7 +11,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var cfgFile string
+// Package-level variable for config file path
+var (
+	cfgFile string
+)
 
 func main() {
 	rootCmd := &cobra.Command{
@@ -20,6 +23,7 @@ func main() {
 		Long:  "CLI tool for managing OCM community meeting communications",
 	}
 
+	// Initialize the persistent flag
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "config.yaml", "Config file (default is config.yaml)")
 
 	rootCmd.AddCommand(NewGenerateCmd())
