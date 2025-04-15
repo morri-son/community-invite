@@ -1,0 +1,35 @@
+# Agenda config file for the OCM community meetings.
+# Used to generate the announcement email and Slack message.
+
+date: 2024-04-09T15:00:00Z # Must be present and in RFC3339 format
+
+# Agenda Items used to generate email and Slack message
+agenda:
+  - type: "Dev Update"
+    title: "Project roadmap review"
+    presenter: "Alice"
+  - type: "Technical Discussion"
+    title: "CI/CD pipeline improvements"
+    presenter: "Bob"
+  - type: "Open Format"
+    title: "Open discussion"
+    presenter: "All"
+
+# Configuration for SMTP server and email settings
+email:
+  subject: "Invitation to the next OCM Community Call"
+  from: "opencomponentmodel@gmail.com"
+  smtp_host: "smtp.gmail.com"
+  smtp_port: 587
+  test_recipient: "gerald.gm.morrison@gmail.com" 
+
+# Configuration for targets, mailing list and Slack channel
+targets:
+  - type: email
+    recipients: ["ocm-announce@googlegroups.com", "hugo@boss.com"]
+    template: "email-template.html"
+  - type: slack
+    channelID: "C05UWBE8R1D"
+    workspace: "kubernetes.slack.com"
+    template: "slack-template.txt"
+  
