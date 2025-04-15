@@ -34,6 +34,7 @@ type Target struct {
 	Type       string   `mapstructure:"type"`
 	Recipients []string `mapstructure:"recipients"`
 	ChannelID  string   `mapstructure:"channelID"`
+	Workspace  string   `mapstructure:"workspace"` // Added workspace field
 	Template   string   `mapstructure:"template"`
 }
 

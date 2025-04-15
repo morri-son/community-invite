@@ -21,7 +21,7 @@ email:
   from: "opencomponentmodel@gmail.com"
   smtp_host: "smtp.gmail.com"
   smtp_port: 587
-  test_recipient: "gerald.gm.morrison@gmail.com" 
+  test_recipient: "opencomponentmodel@gmail.com" 
 
 # Configuration for targets, mailing list and Slack channel
 targets:

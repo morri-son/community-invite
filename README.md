@@ -123,7 +123,8 @@ targets:
  - type: slack
     channel: "#ocm-announce"
     template: "templates/slack-template.txt"
-    channel_id: "C1234567890"
+    channelID: "C1234567890"
+    workspace: "kubernetes.slack.com"
     api_token: "xoxb-1234567890-1234567890123-1234567890123-abc123" # SHOULD be omitted. Instead set SMTP_PASSWORD in the environment.
 ```
 
