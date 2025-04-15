@@ -10,7 +10,7 @@ import (
 	"text/template" // Use text/template instead of html/template
 	"time"
 
-	"github.com/community-invite/internal/config"
+	"github.com/morri-son/community-invite/internal/config"
 )
 
 const templatesDir = "templates"

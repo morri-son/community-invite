@@ -59,7 +59,7 @@ community-invite/                # Root directory for the community invitation C
 ## Installation
 
 ```bash
-go install github.com/community-invite@latest
+go install github.com/morri-son/community-invite@latest
 ````
 
 ## Usage

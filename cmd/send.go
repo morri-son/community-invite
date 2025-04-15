@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 
-	"github.com/community-invite/internal/config"
-	"github.com/community-invite/internal/render"
-	"github.com/community-invite/internal/slack"
-	"github.com/community-invite/internal/smtp"
+	"github.com/morri-son/community-invite/internal/config"
+	"github.com/morri-son/community-invite/internal/render"
+	"github.com/morri-son/community-invite/internal/slack"
+	"github.com/morri-son/community-invite/internal/smtp"
 	"github.com/spf13/cobra"
 )
 

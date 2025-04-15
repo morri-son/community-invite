@@ -6,8 +6,8 @@ import (
 
 	"path/filepath"
 
-	"github.com/community-invite/internal/config"
-	"github.com/community-invite/internal/render"
+	"github.com/morri-son/community-invite/internal/config"
+	"github.com/morri-son/community-invite/internal/render"
 	"github.com/spf13/cobra"
 )
 

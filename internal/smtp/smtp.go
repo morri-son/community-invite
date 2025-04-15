@@ -5,7 +5,7 @@ import (
 	"net/smtp"
 	"os"
 
-	"github.com/community-invite/internal/config"
+	"github.com/morri-son/community-invite/internal/config"
 )
 
 func SendTestEmail(cfg *config.Config, body string) error {
