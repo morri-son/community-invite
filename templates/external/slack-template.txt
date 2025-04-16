@@ -2,8 +2,8 @@
 # 📣 OCM Community Call Invitation 📣
 
 ## 🗓️ **Join us on {{.Date.Format "Mon 02 January 2006 15:04 MST"}}** 🕐
-> *📆 [Add to Outlook Calendar](...)*  
-> *👥 [Join OCM Announcements DL](https://profiles.wdf.sap.corp/groups/65a78cfb4202a4010793b984/join)*  
+> *📆 [Add to Google Calendar](https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=MnJnaW5kcTI1YXUwZzh1bzF1aHUyc2xrbHVfMjAyNTA2MThUMTUwMDAwWiA5Y2JiZDQyOTc0MDBkMzQxMjAwMjQ0ODcxN2M4Yjk0ODVjYzA0NWM5YjIxMDJmOWU5NDZhYWYwZThhOGFhYmI4QGc&tmsrc=9cbbd4297400d3412002448717c8b9485cc045c9b2102f9e946aaf0e8a8aabb8%40group.calendar.google.com&scp=ALL)*  
+> *👥 [Join OCM Announcements Group](https://groups.google.com/g/ocm-community-announce)*  
 
 ---
 
@@ -13,7 +13,7 @@
 {{end}}
 ---
 
-### 📺 [Watch Previous Community Calls](https://github.tools.sap/open-component-model#ocm-community-calls)
+### 📺 [Watch Previous Community Calls](https://ocm.software/docs/community/community-calls-history/)
 
 ---
 
@@ -40,4 +40,4 @@ and we will make [space for your topic](mailto:ocm@sap.com?subject=Speaker%20req
 ### 📬 **Stay Connected**
 
 - **Email us**: [ocm@sap.com](mailto:ocm@sap.com)
-- **Post in our Slack channel**: [#sap-tech-ocm](https://sap.enterprise.slack.com/archives/C03B338HG3H)
+- **Post in our Slack channel**: #open-component-model

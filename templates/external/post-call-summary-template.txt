@@ -30,9 +30,9 @@ Below is a summary of what we discussed.
 
 ### 📅 **Next Community Call**
 > *📆 [DATE AND TIME in UTC]*
-> *🎤 Interested in presenting? [Email us](mailto:ocm@sap.com?subject=Speaker%20request)*
+> *🎤 Interested in presenting? [Email us](mailto:opencomponent@gmail.com?subject=Speaker%20request)*
 
 ---
 
 ### 🎥 Slides and Recordings
-Check out the [History of prior Community Calls](https://github.tools.sap/open-component-model#ocm-community-calls)*
+Check out the [History of prior Community Calls](https://ocm.software/docs/community/community-calls-history)*

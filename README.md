@@ -20,7 +20,7 @@ A secure CLI tool for managing community meeting communications.
   - email-template.html
   - slack-template.txt
 
-## Project structure:
+## Project structure
 
 ```bash
 community-invite/                # Root directory for the community invitation CLI tool
