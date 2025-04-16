@@ -1,4 +1,4 @@
-package main
+package cmd
 
 import (
 	"fmt"
@@ -9,7 +9,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func TestmailCmd() *cobra.Command {
+func NewTestmailCmd() *cobra.Command {
+	var toEmail string
+
 	cmd := &cobra.Command{
 		Use:   "testmail",
 		Short: "Send test email to verification recipient",
@@ -19,20 +21,25 @@ func TestmailCmd() *cobra.Command {
 				return fmt.Errorf("config error: %w", err)
 			}
 
-			// Render HTML body
+			// Override recipient if flag is set
+			if toEmail != "" {
+				cfg.Email.TestRecipient = toEmail
+			}
+
 			body, err := render.HTMLBody(cfg)
 			if err != nil {
 				return err
 			}
 
-			// Send via SMTP
 			if err := smtp.SendTestEmail(cfg, body); err != nil {
 				return fmt.Errorf("SMTP error: %w", err)
 			}
 
-			fmt.Println("Test email sent successfully")
+			fmt.Printf("Test email sent successfully to %s\n", cfg.Email.TestRecipient)
 			return nil
 		},
 	}
+
+	cmd.Flags().StringVarP(&toEmail, "to", "t", "", "Override test recipient email address")
 	return cmd
 }
