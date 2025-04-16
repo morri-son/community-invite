@@ -49,7 +49,20 @@ func GenerateFiles(cfg *config.Config, outputDir string) error {
 	if err != nil {
 		return fmt.Errorf("failed to generate Slack: %w", err)
 	}
-	return os.WriteFile(filepath.Join(outputDir, "slack.md"), []byte(slackContent), 0644)
+	if err := os.WriteFile(filepath.Join(outputDir, "slack.md"), []byte(slackContent), 0644); err != nil {
+		return err
+	}
+
+	// Generate Post-Call Summary
+	postCallContent, err := renderTemplate("post-call-summary-template.txt", data)
+	if err != nil {
+		return fmt.Errorf("failed to generate post-call summary: %w", err)
+	}
+	if err := os.WriteFile(filepath.Join(outputDir, "post-call-summary.md"), []byte(postCallContent), 0644); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func generateEML(cfg *config.Config, data TemplateData) (string, error) {
