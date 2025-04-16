@@ -12,7 +12,7 @@ agenda:
     title: "CI/CD pipeline improvements"
     presenter: "Bob"
   - type: "Open Format"
-    title: "Open discussion"
+    title: "Discussion"
     presenter: "All"
 
 # Configuration for SMTP server and email settings
