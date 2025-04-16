@@ -30,7 +30,8 @@ community-invite/                # Root directory for the community invitation C
 │   ├── email-template.html     # HTML template for email invitations (contains styling and layout)
 │   └── slack-template.txt      # Markdown-formatted template for Slack messages (supports Slack formatting)
 │
-├── cmd/                        # Contains all CLI command implementations
+├── cmd/                       
+│   ├── root.go                 # Root command and shared configuration
 │   │                           # Each file corresponds to a subcommand (generate, testmail, send)
 │   ├── generate.go             # Implements the 'generate' command for creating local template files
 │   ├── testmail.go             # Implements the 'testmail' command for sending test emails
@@ -70,6 +71,9 @@ go install github.com/morri-son/community-invite@latest
 
 # Send test email
 SMTP_PASSWORD="secret" ./community-invite testmail
+
+# Send test email with override recipient and verbose logging
+SMTP_PASSWORD="secret" ./community-invite testmail --to dev@example.com --verbose
 
 # Send to all targets (dry-run)
 SLACK_API_TOKEN="xoxb-123" ./community-invite send --dry-run

@@ -1,9 +1,8 @@
-package main
+package cmd
 
 import (
 	"fmt"
 	"os"
-
 	"path/filepath"
 
 	"github.com/morri-son/community-invite/internal/config"
@@ -11,7 +10,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func GenerateCmd() *cobra.Command {
+func NewGenerateCmd() *cobra.Command {
 	var outputFolder string
 
 	cmd := &cobra.Command{
@@ -31,11 +30,11 @@ func GenerateCmd() *cobra.Command {
 				return fmt.Errorf("generation failed: %w", err)
 			}
 
-			fmt.Printf("Files generated successfully in %s:\n- %s\n- %s\n- %s\n",
-				outputFolder,
-				filepath.Join(outputFolder, "mail.html"),
-				filepath.Join(outputFolder, "mail.eml"),
-				filepath.Join(outputFolder, "slack.md"))
+			fmt.Printf("Files generated successfully in %s:\n", outputFolder)
+			fmt.Printf("- %s\n", filepath.Join(outputFolder, "mail.html"))
+			fmt.Printf("- %s\n", filepath.Join(outputFolder, "mail.eml"))
+			fmt.Printf("- %s\n", filepath.Join(outputFolder, "slack.md"))
+			fmt.Printf("- %s\n", filepath.Join(outputFolder, "post-call-summary.md"))
 			return nil
 		},
 	}

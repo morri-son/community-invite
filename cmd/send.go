@@ -1,4 +1,4 @@
-package main
+package cmd
 
 import (
 	"fmt"
@@ -10,9 +10,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var cfgFile string
-
-func SendCmd() *cobra.Command {
+func NewSendCmd() *cobra.Command {
 	var dryRun bool
 
 	cmd := &cobra.Command{
@@ -41,7 +39,8 @@ func SendCmd() *cobra.Command {
 			return nil
 		},
 	}
-	cmd.Flags().StringVar(&cfgFile, "config", "config.yaml", "Path to the configuration file")
+
+	cmd.Flags().BoolVar(&dryRun, "dry-run", false, "Simulate sending without actual delivery")
 	return cmd
 }
 
@@ -70,6 +69,5 @@ func handleSlackTarget(cfg *config.Config, target config.Target, dryRun bool) er
 		return nil
 	}
 
-	// Verwende target.Workspace als workspaceURL
 	return slack.SendMessage(target.ChannelID, message, target.Workspace)
 }
