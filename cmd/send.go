@@ -70,5 +70,6 @@ func handleSlackTarget(cfg *config.Config, target config.Target, dryRun bool) er
 		return nil
 	}
 
-	return slack.SendMessage(target.ChannelID, message)
+	// Verwende target.Workspace als workspaceURL
+	return slack.SendMessage(target.ChannelID, message, target.Workspace)
 }
