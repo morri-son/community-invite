@@ -2,7 +2,6 @@ package config
 
 import (
 	"fmt"
-	"os"
 	"time"
 
 	"github.com/spf13/viper"
@@ -11,7 +10,6 @@ import (
 type Config struct {
 	Date    time.Time    `mapstructure:"date"`
 	Agenda  []AgendaItem `mapstructure:"agenda"`
-	Email   EmailConfig  `mapstructure:"email"`
 	Targets []Target     `mapstructure:"targets"`
 }
 
@@ -21,21 +19,20 @@ type AgendaItem struct {
 	Presenter string `mapstructure:"presenter"`
 }
 
-type EmailConfig struct {
-	Subject       string `mapstructure:"subject"`
-	From          string `mapstructure:"from"`
-	SMTPHost      string `mapstructure:"smtp_host"`
-	SMTPPort      int    `mapstructure:"smtp_port"`
-	TestRecipient string `mapstructure:"test_recipient"`
-	Password      string `mapstructure:"password"` // Only for fallback
-}
-
 type Target struct {
-	Type       string   `mapstructure:"type"`
-	Recipients []string `mapstructure:"recipients"`
-	ChannelID  string   `mapstructure:"channelID"`
-	Workspace  string   `mapstructure:"workspace"` // Added workspace field
-	Template   string   `mapstructure:"template"`
+	Type string `mapstructure:"type"`
+	// Email fields
+	Subject    string   `mapstructure:"subject,omitempty"`
+	From       string   `mapstructure:"from,omitempty"`
+	SMTPHost   string   `mapstructure:"smtp_host,omitempty"`
+	SMTPPort   int      `mapstructure:"smtp_port,omitempty"`
+	Recipients []string `mapstructure:"recipients,omitempty"`
+	// Slack fields
+	ClientID  string `mapstructure:"client_id,omitempty"`
+	ChannelID string `mapstructure:"channel_id,omitempty"`
+	Workspace string `mapstructure:"workspace,omitempty"`
+	// Common
+	Template string `mapstructure:"template"`
 }
 
 func LoadConfig(path string) (*Config, error) {
@@ -51,10 +48,6 @@ func LoadConfig(path string) (*Config, error) {
 
 	if cfg.Date.IsZero() {
 		return nil, fmt.Errorf("invalid date in config")
-	}
-
-	if cfg.Email.Password != "" {
-		fmt.Fprintln(os.Stderr, "WARNING: Storing passwords in config.yaml is insecure! Use SMTP_PASSWORD environment variable instead.")
 	}
 
 	return &cfg, nil

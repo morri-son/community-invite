@@ -16,8 +16,10 @@ import (
 const templatesDir = "templates"
 
 type TemplateData struct {
-	Date   time.Time
-	Agenda []config.AgendaItem
+	Date    time.Time
+	Agenda  []config.AgendaItem
+	Subject string
+	From    string
 }
 
 func GenerateFiles(cfg *config.Config, outputDir string) error {
@@ -26,22 +28,36 @@ func GenerateFiles(cfg *config.Config, outputDir string) error {
 		Agenda: cfg.Agenda,
 	}
 
-	// Generate HTML
-	htmlContent, err := renderTemplate("email-template.html", data)
-	if err != nil {
-		return fmt.Errorf("failed to generate HTML: %w", err)
-	}
-	if err := os.WriteFile(filepath.Join(outputDir, "mail.html"), []byte(htmlContent), 0644); err != nil {
-		return err
+	// Find email target for generation
+	var emailTarget *config.Target
+	for _, t := range cfg.Targets {
+		if t.Type == "email" {
+			emailTarget = &t
+			break
+		}
 	}
 
-	// Generate EML
-	emlContent, err := generateEML(cfg, data)
-	if err != nil {
-		return fmt.Errorf("failed to generate EML: %w", err)
-	}
-	if err := os.WriteFile(filepath.Join(outputDir, "mail.eml"), []byte(emlContent), 0644); err != nil {
-		return err
+	if emailTarget != nil {
+		data.Subject = emailTarget.Subject
+		data.From = emailTarget.From
+
+		// Generate HTML
+		htmlContent, err := renderTemplate("email-template.html", data)
+		if err != nil {
+			return fmt.Errorf("failed to generate HTML: %w", err)
+		}
+		if err := os.WriteFile(filepath.Join(outputDir, "mail.html"), []byte(htmlContent), 0644); err != nil {
+			return err
+		}
+
+		// Generate EML
+		emlContent, err := generateEML(*emailTarget, data)
+		if err != nil {
+			return fmt.Errorf("failed to generate EML: %w", err)
+		}
+		if err := os.WriteFile(filepath.Join(outputDir, "mail.eml"), []byte(emlContent), 0644); err != nil {
+			return err
+		}
 	}
 
 	// Generate Slack
@@ -56,24 +72,12 @@ func GenerateFiles(cfg *config.Config, outputDir string) error {
 	return nil
 }
 
-func generateEML(cfg *config.Config, data TemplateData) (string, error) {
-	var recipients []string
-	for _, target := range cfg.Targets {
-		if target.Type == "email" && len(target.Recipients) > 0 {
-			recipients = target.Recipients
-			break
-		}
-	}
-	if len(recipients) == 0 {
-		return "", fmt.Errorf("no email recipients found")
-	}
-
+func generateEML(target config.Target, data TemplateData) (string, error) {
 	htmlContent, err := renderTemplate("email-template.html", data)
 	if err != nil {
 		return "", err
 	}
 
-	// Encode HTML content using quoted-printable
 	var encodedHTML bytes.Buffer
 	writer := quotedprintable.NewWriter(&encodedHTML)
 	if _, err := writer.Write([]byte(htmlContent)); err != nil {
@@ -91,19 +95,16 @@ Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
 %s`,
-		cfg.Email.From,
-		strings.Join(recipients, ", "),
-		cfg.Email.Subject,
+		target.From,
+		strings.Join(target.Recipients, ", "),
+		target.Subject,
 		encodedHTML.String(),
 	), nil
 }
 
 func renderTemplate(templateName string, data TemplateData) (string, error) {
 	tmplPath := filepath.Join(templatesDir, templateName)
-
-	// Use text/template instead of html/template
-	tmpl, err := template.New(filepath.Base(tmplPath)).
-		ParseFiles(tmplPath)
+	tmpl, err := template.New(filepath.Base(tmplPath)).ParseFiles(tmplPath)
 	if err != nil {
 		return "", fmt.Errorf("template parsing failed: %w", err)
 	}
@@ -116,18 +117,10 @@ func renderTemplate(templateName string, data TemplateData) (string, error) {
 	return buf.String(), nil
 }
 
-func HTMLBody(cfg *config.Config) (string, error) {
-	data := TemplateData{
-		Date:   cfg.Date,
-		Agenda: cfg.Agenda,
-	}
-	return renderTemplate("email-template.html", data)
+func HTMLBody(target config.Target, data TemplateData) (string, error) {
+	return renderTemplate(target.Template, data)
 }
 
-func SlackMessage(cfg *config.Config) (string, error) {
-	data := TemplateData{
-		Date:   cfg.Date,
-		Agenda: cfg.Agenda,
-	}
-	return renderTemplate("slack-template.md", data)
+func SlackMessage(target config.Target, data TemplateData) (string, error) {
+	return renderTemplate(target.Template, data)
 }
