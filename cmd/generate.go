@@ -31,10 +31,9 @@ func NewGenerateCmd() *cobra.Command {
 			}
 
 			fmt.Printf("Files generated successfully in %s:\n", outputFolder)
-			fmt.Printf("- %s\n", filepath.Join(outputFolder, "mail.html"))
-			fmt.Printf("- %s\n", filepath.Join(outputFolder, "mail.eml"))
-			fmt.Printf("- %s\n", filepath.Join(outputFolder, "slack.md"))
-			fmt.Printf("- %s\n", filepath.Join(outputFolder, "post-call-summary.md"))
+			fmt.Printf("- %s\n", filepath.Join(outputFolder, "mail.html - pure HTML to be used in email clients"))
+			fmt.Printf("- %s\n", filepath.Join(outputFolder, "mail.eml - EML file to be used in email clients"))
+			fmt.Printf("- %s\n", filepath.Join(outputFolder, "slack.md - Slack message to be used in Slack"))
 			return nil
 		},
 	}

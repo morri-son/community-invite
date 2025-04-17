@@ -20,12 +20,12 @@ func NewTestmailCmd() *cobra.Command {
 
 	cmd := &cobra.Command{
 		Use:   "testmail",
-		Short: "Send test email to verification recipient",
+		Short: "Send generated email to test recipient for verification",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			startTime := time.Now()
 
 			if verbose {
-				fmt.Fprintf(os.Stderr, "Starting test email procedure at %s\n", startTime.Format("15:04:05"))
+				fmt.Fprintf(os.Stderr, "Star sending test email at %s\n", startTime.Format("15:04:05"))
 				fmt.Fprintf(os.Stderr, "Using config file: %s\n", cfgFile)
 			}
 

@@ -9,7 +9,7 @@ var cfgFile string
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "community-invite",
-	Short: "Generate and send community meeting invitations",
+	Short: "Generate, test and send community meeting invitations",
 	Long:  "CLI tool for managing OCM community meeting communications",
 }
 
@@ -19,7 +19,7 @@ func Execute() error {
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "config.yaml", "config file (default is config.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "config.yaml", "config file (default is ./config.yaml)")
 
 	// Register subcommands
 	rootCmd.AddCommand(NewGenerateCmd())

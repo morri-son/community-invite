@@ -7,7 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"text/template" // Use text/template instead of html/template
+	"text/template"
 	"time"
 
 	"github.com/morri-son/community-invite/internal/config"
@@ -50,15 +50,6 @@ func GenerateFiles(cfg *config.Config, outputDir string) error {
 		return fmt.Errorf("failed to generate Slack: %w", err)
 	}
 	if err := os.WriteFile(filepath.Join(outputDir, "slack.md"), []byte(slackContent), 0644); err != nil {
-		return err
-	}
-
-	// Generate Post-Call Summary
-	postCallContent, err := renderTemplate("post-call-summary-template.txt", data)
-	if err != nil {
-		return fmt.Errorf("failed to generate post-call summary: %w", err)
-	}
-	if err := os.WriteFile(filepath.Join(outputDir, "post-call-summary.md"), []byte(postCallContent), 0644); err != nil {
 		return err
 	}
 

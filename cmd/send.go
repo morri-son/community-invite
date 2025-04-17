@@ -15,7 +15,7 @@ func NewSendCmd() *cobra.Command {
 
 	cmd := &cobra.Command{
 		Use:   "send",
-		Short: "Send invitations to all targets",
+		Short: "Send generated invitations to all configured targets",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cfg, err := config.LoadConfig(cfgFile)
 			if err != nil {
