@@ -2,7 +2,7 @@
 # 📣 OCM Community Call Invitation 📣
 
 ## 🗓️ **Join us on {{.Date.Format "Mon 02 January 2006 15:04 MST"}}** 🕐
-> *📆 [Add to Outlook Calendar](...)*  
+> *📆 Invitation via Outlook will follow soon*  
 > *👥 [Join OCM Announcements DL](https://profiles.wdf.sap.corp/groups/65a78cfb4202a4010793b984/join)*  
 
 ---

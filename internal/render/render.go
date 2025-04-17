@@ -45,7 +45,7 @@ func GenerateFiles(cfg *config.Config, outputDir string) error {
 	}
 
 	// Generate Slack
-	slackContent, err := renderTemplate("slack-template.txt", data)
+	slackContent, err := renderTemplate("slack-template.md", data)
 	if err != nil {
 		return fmt.Errorf("failed to generate Slack: %w", err)
 	}
@@ -129,5 +129,5 @@ func SlackMessage(cfg *config.Config) (string, error) {
 		Date:   cfg.Date,
 		Agenda: cfg.Agenda,
 	}
-	return renderTemplate("slack-template.txt", data)
+	return renderTemplate("slack-template.md", data)
 }
